@@ -3,8 +3,8 @@ export type SortKey = number | string | Date | ArrayBuffer | ArrayBufferView | A
 
 export const enum SortKeyType {
   NUMBER = 0,
-  STRING = 1,
-  DATE = 2,
+  DATE = 1,
+  STRING = 2,
   BINARY = 3,
   ARRAY = 4,
 }
@@ -30,16 +30,13 @@ export function sortKeyCompare(a: SortKey, b: SortKey): number {
       return Math.sign(+a - +b);
     }
     case SortKeyType.STRING: {
-      const length = Math.min((a as string).length, (b as string).length);
+      const aStr = a as string, bStr = b as string;
+      const length = Math.min(aStr.length, bStr.length);
       for (let i = 0; i < length; i++) {
-        let u = (a as string).charCodeAt(i), v = (b as string).charCodeAt(i);
-        if (u > v) return 1;
-        if (u < v) return -1;
+        let c = Math.sign(aStr.charCodeAt(i) - bStr.charCodeAt(i));
+        if (c !== 0) return c;
       }
-      if ((a as string).length > (b as string).length) {
-        return 1;
-      }
-      return 0;
+      return Math.sign(aStr.length - bStr.length);
     }
     case SortKeyType.BINARY: {
       const aBytes = (a instanceof ArrayBuffer) ? new Uint8Array(a) 
@@ -72,3 +69,5 @@ export function sortKeyCompare(a: SortKey, b: SortKey): number {
     }
   }
 }
+
+export const LOWEST_KEY: SortKey = -Infinity;
