@@ -57,7 +57,6 @@ export default (t: TestHarness) => {
     t.is(sortKeyCompare('P', 'Z'),  -1, "'P' < 'Z'");
     t.is(sortKeyCompare('P', 'A'),   1, "'P' > 'A'");
     t.is(sortKeyCompare('P', 'P'),   0, "'P' = 'P'");
-    console.log(sortKeyCompare('P', 'PP'));
     t.is(sortKeyCompare('P', 'PP'), -1, "'P' < 'PP'");
     t.is(sortKeyCompare('P', ''),    1, "'P' > ''");
   });
