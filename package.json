@@ -30,9 +30,7 @@
     "lib/**/*.js",
     "lib/**/*.d.ts"
   ],
-  "dependencies": {
-    "rxjs": "^6.5.5"
-  },
+  "dependencies": {},
   "description": "Collation for a subset of JS values based on IndexedDB key order.",
   "author": "Duncan Cross"
 }
