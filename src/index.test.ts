@@ -1,6 +1,6 @@
 
 import { TestHarness } from 'zora';
-import { sortKeyCompare, SortKey } from '../lib/index';
+import { sortKeyCompare, SortKey, naturalSortKey } from '../lib/index';
 
 export default (t: TestHarness) => {
 
@@ -104,6 +104,18 @@ export default (t: TestHarness) => {
     t.is(sortKeyCompare(a36, a11),  1, '[36] > [11]');
     t.is(sortKeyCompare(a36, a36_x2), -1, '[36] < [36, 36]');
     t.is(sortKeyCompare(a36, a_empty), 1, '[36] > []');
+  });
+
+  t.test('natural ordering', t => {
+    const sorted = ['test10a', 'test10b', 'test/', 'test1a', '', 'test1000a', 'test:', 'test9x', 'test45b', '100', 'test'];
+    t.eq(sorted.slice().sort((a, b) => sortKeyCompare(naturalSortKey(a), naturalSortKey(b))), [
+      '',
+      '100',       'test',
+      'test/',     'test1a',
+      'test9x',    'test10a',
+      'test10b',   'test45b',
+      'test1000a', 'test:'
+    ]);
   });
 
 }

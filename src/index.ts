@@ -71,3 +71,13 @@ export function sortKeyCompare(a: SortKey, b: SortKey): number {
 }
 
 export const LOWEST_KEY: SortKey = -Infinity;
+
+export function naturalSortKey(str: string): SortKey {
+  if (str.length === 0) return [];
+  const parts = str.match(/\d+|\D+/gy)!;
+  const evenOrOdd = /^\d/.test(parts[0]) ? 0 : 1;
+  const parts2 = parts.map((v, i) : ['0', number] | string[] => {
+    return i%2 === evenOrOdd ? ['0', +v] : [].slice.apply(v);
+  });
+  return new Array<SortKey>().concat(...parts2);
+}
